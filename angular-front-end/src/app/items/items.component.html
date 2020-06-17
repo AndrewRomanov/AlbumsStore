@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="filters">
+    <mat-form-field id="search-field">
+      <mat-label>Поиск</mat-label>
+      <input matInput id="search" [(ngModel)]="searchStr">
+    </mat-form-field>
+    <div class="price-container">
+      <mat-form-field id="price-start-field">
+        <mat-label>Цена от</mat-label>
+        <input matInput id="price-start" [(ngModel)]="priceStart">
+      </mat-form-field>
+      <mat-form-field id="price-end-field">
+        <mat-label>Цена до</mat-label>
+        <input matInput id="price-end" [(ngModel)]="priceEnd">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Жанр</mat-label>
+        <mat-select [(ngModel)]="selectedGenre">
+          <mat-option *ngFor="let genre of genres" [value]="genre.value">
+            {{genre.description}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="sort-container">
+      <mat-form-field>
+        <mat-label>Сортировать</mat-label>
+        <mat-select [(ngModel)]="selectedSortingType">
+          <mat-option *ngFor="let type of sortingTypes" [value]="type.value">
+            {{type.description}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="items-container">
+    <mat-grid-list [cols]="breakpoint" rowHeight="12:14" (window:resize)="onResize($event)" [gutterSize]="'-300px'">
+      <div>
+        <mat-grid-tile
+          *ngFor="let album of pagedAlbums | search: searchStr | searchRange: priceStart:priceEnd | genreFilter: selectedGenre">
+          <app-album
+            [album]="album">
+          </app-album>
+        </mat-grid-tile>
+      </div>
+    </mat-grid-list>
+    <mat-paginator [length]="length"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="pageSizeOptions"
+                   (page)="OnPageChange($event)">
+    </mat-paginator>
+  </div>
+</div>

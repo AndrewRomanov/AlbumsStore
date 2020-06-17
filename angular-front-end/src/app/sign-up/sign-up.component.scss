@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  width: 500px;
+  height: 500px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  align-items: center;
+  position: absolute;
+  left: 35%;
+  top: 20%;
+}
+
+.mat-form-field, .mat-raised-button {
+  width: 400px;
+}
+
+span {
+  display: block;
+  margin-top: 20px;
+}
+
+

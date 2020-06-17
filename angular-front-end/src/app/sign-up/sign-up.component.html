@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>Зарегистрироваться</h1>
+  <form class="sign-up-form-form" [formGroup]="userService.signUpForm" (ngSubmit)="onSubmit()">
+    <p>
+      <mat-form-field>
+        <mat-label>Имя</mat-label>
+        <input matInput type="text" id="fullName" formControlName="fullName">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Логин</mat-label>
+        <input matInput type="text" id="userName" formControlName="userName">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput type="text" id="email" formControlName="email">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Пароль</mat-label>
+        <input matInput type="password" id="password" formControlName="password">
+      </mat-form-field>
+    </p>
+    <button mat-raised-button color="primary">Отправить</button>
+    <span>Уже зарегистрированы? <a routerLink="/signIn">Войти</a></span>
+  </form>
+</div>

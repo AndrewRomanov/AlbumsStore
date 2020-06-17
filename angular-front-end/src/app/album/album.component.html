@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{album.name}}</mat-card-title>
+  </mat-card-header>
+  <img src="https://media.istockphoto.com/vectors/vinyl-lp-record-disc-black-music-vinyl-album-disc-realistic-retro-vector-id866636400" />
+  <mat-card-content>
+    <p>
+      {{album.groupName}}
+    </p>
+    <p>
+      {{album.genre.name}}
+    </p>
+    <p>
+      {{album.price | currency}}
+    </p>
+  </mat-card-content>
+</mat-card>

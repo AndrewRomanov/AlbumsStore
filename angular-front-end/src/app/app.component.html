@@ -1,0 +1,7 @@
+<mat-toolbar *ngIf="userService.isLoggedIn">
+  <span>Albums Store</span>
+  <button mat-button (click)="onLogout()">Выйти</button>
+</mat-toolbar>
+<div>
+  <router-outlet></router-outlet>
+</div>
