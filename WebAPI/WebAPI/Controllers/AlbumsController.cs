@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebAPI.DAL;
 using WebAPI.DAL.Models;
+using WebAPI.Services.Interfaces;
 
 namespace WebAPI.Controllers
 {
@@ -14,18 +13,18 @@ namespace WebAPI.Controllers
     [ApiController]
     public class AlbumsController : ControllerBase
     {
-		private ApplicationDbContext _applicationDbContext;
+		private IAlbumsService _albumsService;
 
-		public AlbumsController(ApplicationDbContext applicationDbContext)
+		public AlbumsController(IAlbumsService albumsService)
 		{
-			_applicationDbContext = applicationDbContext;
+			_albumsService = albumsService;
 		}
 
 		[HttpGet]
 		[Route("GetAllAlbums")]
 		public async Task<List<Album>> GetAllAlbums()
 		{
-			return await _applicationDbContext.Albums.Include(p => p.Genre).ToListAsync();
+			return await _albumsService.GetAllAlbums();
 		}
     }
 }
