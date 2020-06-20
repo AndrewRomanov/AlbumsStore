@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace WebAPI.Migrations
 {
-    public partial class AddAlbumsTable : Migration
+	public partial class AddAlbumsTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

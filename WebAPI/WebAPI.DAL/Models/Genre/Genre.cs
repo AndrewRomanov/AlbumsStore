@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebAPI.Models
+namespace WebAPI.DAL.Models
 {
 	public class Genre
 	{

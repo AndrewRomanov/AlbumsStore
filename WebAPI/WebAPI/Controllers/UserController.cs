@@ -1,13 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebAPI.Models;
+using WebAPI.Services.Interfaces;
 
 namespace WebAPI.Controllers
 {
@@ -15,35 +9,23 @@ namespace WebAPI.Controllers
 	[ApiController]
 	public class UserController : ControllerBase
 	{
-		private UserManager<UserModel> _userManager;
-		private SignInManager<UserModel> _signInManager;
-		private ApplicationDbContext _userContext;
+		private IUserService _userService;
 
-		public UserController(UserManager<UserModel> userManager,
-							  SignInManager<UserModel> signInManager,
-							  ApplicationDbContext userContext)
+		public UserController(IUserService userService)
 		{
-			_userManager = userManager;
-			_signInManager = signInManager;
-			_userContext = userContext;
+			_userService = userService;
 		}
 
 		[HttpPost]
 		[Route("Register")]
 		public async Task<object> Register(UserViewModel model)
 		{
-			try
+			var result = await _userService.Register(model);
+			if (result != null)
 			{
-				var user = new UserModel
-				{
-					FullName = model.FullName,
-					UserName = model.UserName,
-					Email = model.Email
-				};
-				var result = await _userManager.CreateAsync(user, model.Password);
 				return Ok(result);
 			}
-			catch
+			else
 			{
 				return StatusCode(500);
 			}
@@ -53,27 +35,9 @@ namespace WebAPI.Controllers
 		[Route("Login")]
 		public async Task<IActionResult> Login(UserViewModel model)
 		{
-			var userModel = new UserModel
+			var token = await _userService.Login(model);
+			if (!string.IsNullOrEmpty(token))
 			{
-				FullName = model.FullName,
-				UserName = model.UserName,
-				Email = model.Email,
-			};
-			var user = await _userManager.FindByNameAsync(userModel.UserName);
-			if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
-			{
-				var tokenDescriptor = new SecurityTokenDescriptor
-				{
-					Subject = new ClaimsIdentity(new Claim[]
-					{
-						new Claim("UserID", user.Id.ToString())
-					}),
-					Expires = DateTime.Now.AddMinutes(10),
-					SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("1234567890123456")), SecurityAlgorithms.HmacSha256Signature)
-				};
-				var tokenHandler = new JwtSecurityTokenHandler();
-				var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-				var token = tokenHandler.WriteToken(securityToken);
 				return Ok(new { token });
 			}
 			else
@@ -86,14 +50,12 @@ namespace WebAPI.Controllers
 		[Route("Logout")]
 		public async Task<object> Logout()
 		{
-			try
+			var result = await _userService.Logout();
+			if (result == true)
 			{
-				var user = _userContext.Users.Where(x => x.UserName == "Andrew666");
-				bool val1 = Request.HttpContext.User.Identity.IsAuthenticated;
-				await _signInManager.SignOutAsync();
 				return Ok();
 			}
-			catch
+			else
 			{
 				return StatusCode(500);
 			}

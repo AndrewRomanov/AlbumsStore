@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebAPI.Models
+namespace WebAPI.DAL.Models
 {
 	public class Album
 	{

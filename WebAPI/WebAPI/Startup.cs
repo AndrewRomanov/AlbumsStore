@@ -9,7 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
-using WebAPI.Models;
+using WebAPI.DAL;
+using WebAPI.DAL.Models;
 
 namespace WebAPI
 {
@@ -51,7 +52,7 @@ namespace WebAPI
 			{
 				x.RequireHttpsMetadata = false;
 				x.SaveToken = false;
-				x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+				x.TokenValidationParameters = new TokenValidationParameters
 				{
 					ValidateIssuerSigningKey = true,
 					IssuerSigningKey = new SymmetricSecurityKey(key),

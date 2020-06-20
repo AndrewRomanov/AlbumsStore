@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Genre\" />
+    <ProjectReference Include="..\WebAPI.DAL\WebAPI.DAL.csproj" />
   </ItemGroup>
 
 </Project>

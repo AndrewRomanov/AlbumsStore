@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WebAPI.DAL.Models;
 
-namespace WebAPI.Models
+namespace WebAPI.DAL
 {
 	public class ApplicationDbContext: IdentityDbContext
 	{
