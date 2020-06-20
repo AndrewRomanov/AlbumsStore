@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebAPI.DAL;
+using WebAPI.DAL.Interfaces;
 using WebAPI.DAL.Models;
 using WebAPI.Services.Interfaces;
 
@@ -9,16 +8,16 @@ namespace WebAPI.Services.Implementations
 {
 	public class AlbumsService : IAlbumsService
 	{
-		private ApplicationDbContext _applicationDbContext;
+		private IAlbumsDALService _albumsDALService;
 
-		public AlbumsService(ApplicationDbContext applicationDbContext)
+		public AlbumsService(IAlbumsDALService albumsDALService)
 		{
-			_applicationDbContext = applicationDbContext;
+			_albumsDALService = albumsDALService;
 		}
 
 		public async Task<List<Album>> GetAllAlbums()
 		{
-			return await _applicationDbContext.Albums.Include(p => p.Genre).ToListAsync();
+			return await _albumsDALService.GetAllAlbums();
 		}
 	}
 }
