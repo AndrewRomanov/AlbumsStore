@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WebAPI.Common\WebAPI.Common.csproj" />
     <ProjectReference Include="..\WebAPI.DAL\WebAPI.DAL.csproj" />
   </ItemGroup>
 

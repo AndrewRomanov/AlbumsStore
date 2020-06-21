@@ -17,4 +17,10 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="C:\Users\roman\.nuget\packages\nlog.config\4.7.2\contentFiles\any\any\NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
