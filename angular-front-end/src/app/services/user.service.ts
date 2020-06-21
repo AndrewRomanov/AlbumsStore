@@ -1,15 +1,12 @@
-import {Injectable, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {register} from "ts-node";
+import {Injectable} from '@angular/core';
+import {FormBuilder, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
-import {AppComponent} from "../app.component";
+import * as globals from "../../globals";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
-  readonly baseURI = 'http://localhost:5000/api/';
 
   isLoggedIn = false;
 
@@ -55,12 +52,12 @@ export class UserService {
       Email: this.signUpForm.value.email,
       Password: this.signUpForm.value.password
     };
-    return this.httpClient.post(this.baseURI + 'User/Register/', body);
+    return this.httpClient.post(globals.BaseURI + 'User/Register/', body);
   }
 
   logout() {
     this.isLoggedIn = false;
-    return this.httpClient.get(this.baseURI + 'User/Logout/');
+    return this.httpClient.get(globals.BaseURI + 'User/Logout/');
   }
 
   login() {
@@ -68,6 +65,6 @@ export class UserService {
       UserName: this.signInForm.value.userName,
       Password: this.signInForm.value.password
     };
-    return this.httpClient.post(this.baseURI + 'User/Login', body);
+    return this.httpClient.post(globals.BaseURI + 'User/Login', body);
   }
 }

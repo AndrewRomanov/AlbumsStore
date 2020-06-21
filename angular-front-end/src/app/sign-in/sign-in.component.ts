@@ -17,13 +17,11 @@ export class SignInComponent {
   login() {
     this.userService.login().subscribe(
       (success: any) => {
-        debugger;
         localStorage.setItem('token', success.token);
         this.userService.isLoggedIn = true;
         this.router.navigateByUrl('items');
       },
       error => {
-        debugger;
         this.notificationService.showError("Ошибка входа");
       }
     );
