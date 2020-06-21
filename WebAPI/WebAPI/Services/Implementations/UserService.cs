@@ -43,7 +43,7 @@ namespace WebAPI.Services.Implementations
 			}
 			catch (Exception ex)
 			{
-				_logService.Log(LogLevel.Error, ex, "Произошла ошибка в UserService: ");
+				_logService.Log(LogLevel.Error, ex, "Произошла ошибка в UserService");
 				return null;
 			}
 		}
@@ -82,7 +82,7 @@ namespace WebAPI.Services.Implementations
 			}
 			catch (Exception ex)
 			{
-				_logService.Log(LogLevel.Error, ex, "Произошла ошибка в UserService: ");
+				_logService.Log(LogLevel.Error, ex, "Произошла ошибка в UserService");
 				return string.Empty;
 			}
 		}
@@ -96,7 +96,7 @@ namespace WebAPI.Services.Implementations
 			}
 			catch (Exception ex)
 			{
-				_logService.Log(LogLevel.Error, ex, "Произошла ошибка в UserService: ");
+				_logService.Log(LogLevel.Error, ex, "Произошла ошибка в UserService");
 				return false;
 			}
 		}
