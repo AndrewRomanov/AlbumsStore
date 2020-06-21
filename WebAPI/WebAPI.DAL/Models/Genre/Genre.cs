@@ -10,5 +10,7 @@ namespace WebAPI.DAL.Models
 
 		[Required]
 		public string Name { get; set; }
+
+		public string Desctription { get; set; }
 	}
 }

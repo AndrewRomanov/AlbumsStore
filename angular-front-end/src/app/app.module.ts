@@ -28,6 +28,7 @@ import {AuthGuard} from "./auth/auth.guard";
 import {HttpClientModule} from "@angular/common/http";
 import {NotificationService} from "./services/notification.service";
 import { SortPipe } from './pipes/sort.pipe';
+import {GenresService} from "./services/genres.service";
 
 const routes = [
   {path: '', component: SignInComponent},
@@ -70,6 +71,7 @@ const routes = [
     [
       UserService,
       AlbumsService,
+      GenresService,
       NotificationService
     ],
   bootstrap: [AppComponent]
