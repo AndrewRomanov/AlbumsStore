@@ -4,6 +4,7 @@ import {AlbumModel} from "../models/album.model";
 import {GenresEnum} from "../enums/genres.enum";
 import {PageEvent} from "@angular/material/paginator";
 import {AlbumsSelectionParameters} from "../models/albums-selection-parameters.model";
+import {GenresService} from "../services/genres.service";
 
 @Component({
   selector: 'app-items',
@@ -20,14 +21,12 @@ export class ItemsComponent implements OnInit {
   selectedGenre: any;
   selectedSortingType: any;
 
-  genres = [
-    {value: 0, description: 'Не выбрано'},
-    {value: GenresEnum.Rock, description: 'Рок'},
-    {value: GenresEnum.Electronic, description: 'Электроника'},
-    {value: GenresEnum.Blues, description: 'Блюз'},
-    {value: GenresEnum.HipHop, description: 'Хип-Хоп'},
-    {value: GenresEnum.Funk, description: 'Фанк'}
-  ];
+  genres = [];
+
+  currentPage: number;
+  albumsSelectionParameters: AlbumsSelectionParameters;
+  disablePrevPage: boolean = true;
+  disableNextPage: boolean = false;
 
   sortingTypes = [
     {value: 0, description: 'Не выбрано'},
@@ -35,17 +34,50 @@ export class ItemsComponent implements OnInit {
     {value: 2, description: 'По цене'}
   ]
 
-  constructor(private albumsService: AlbumsService) {
+  constructor(private albumsService: AlbumsService,
+              private genresService: GenresService) {
   }
 
   ngOnInit(): void {
+    this.initPaging();
+    this.initGenres();
+  }
+
+  initPaging() {
+    this.currentPage = 1;
+  }
+
+  onPrevPage() {
+    this.currentPage--;
+    this.disablePrevPage = this.currentPage !== 1;
     this.getAlbums();
+  }
+
+  onNextPage() {
+    this.currentPage++;
+    this.disablePrevPage = this.currentPage === 20; // Поменять потом
+    this.getAlbums();
+  }
+
+  initGenres() {
+    debugger;
+    this.genresService.getGenres().subscribe(
+      success => {
+        debugger;
+        this.genres.push({id: 0, name: 'Не выбрано'});
+        this.genres.push(success);
+        this.getAlbums();
+      },
+      error => {
+        debugger;
+        console.log(error);
+      }
+    )
   }
 
   getAlbums() {
     let itemsCount = 6;
-    let pageNumber = 1;
-    let albumsSelectionParameters = new AlbumsSelectionParameters(0, 20000, itemsCount, pageNumber);
+    let albumsSelectionParameters = new AlbumsSelectionParameters(0, 20000, itemsCount, this.currentPage);
     this.albumsService.getAllAlbums(albumsSelectionParameters).subscribe(
       success => {
         this.albums = success;

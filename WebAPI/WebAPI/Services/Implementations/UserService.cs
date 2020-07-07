@@ -67,7 +67,7 @@ namespace WebAPI.Services.Implementations
 						{
 						new Claim("UserID", user.Id.ToString())
 						}),
-						Expires = DateTime.Now.AddMinutes(10),
+						Expires = DateTime.Now.AddDays(7),
 						SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes("1234567890123456")), SecurityAlgorithms.HmacSha256Signature)
 					};
 					var tokenHandler = new JwtSecurityTokenHandler();

@@ -12,7 +12,7 @@ namespace WebAPI.DAL.Imlementations
 
 		public GenresDALService(ApplicationDbContext applicationDbContext)
 		{
-			applicationDbContext = _applicationDbContext;
+			_applicationDbContext = applicationDbContext;
 		}
 
 		public async Task<List<Genre>> GetGenres()

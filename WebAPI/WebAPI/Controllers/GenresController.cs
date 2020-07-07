@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,8 +10,8 @@ namespace WebAPI.Controllers
 {
 	[Route("api/Genres")]
     [ApiController]
-	[Authorize]
-    public class GenresController : ControllerBase
+	[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+	public class GenresController : ControllerBase
     {
 		private IGenresService _genresService;
 

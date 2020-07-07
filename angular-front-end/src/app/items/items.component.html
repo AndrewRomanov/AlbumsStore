@@ -16,8 +16,8 @@
       <mat-form-field>
         <mat-label>Жанр</mat-label>
         <mat-select [(ngModel)]="selectedGenre">
-          <mat-option *ngFor="let genre of genres" [value]="genre.value">
-            {{genre.description}}
+          <mat-option *ngFor="let genre of genres" [value]="genre.id">
+            {{genre.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -32,6 +32,10 @@
         </mat-select>
       </mat-form-field>
     </div>
+  </div>
+  <div>
+    <span (click)="onPrevPage()" class="material-icons paging-icon">navigate_before</span>
+    <span (click)="onNextPage()" class="material-icons paging-icon">navigate_next</span>
   </div>
   <div class="items-container">
     <app-album *ngFor="let album of albums" [album]="album">
