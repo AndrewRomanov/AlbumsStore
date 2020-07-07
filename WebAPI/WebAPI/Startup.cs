@@ -9,8 +9,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
+using WebAPI.Common.Implementations;
+using WebAPI.Common.Interfaces;
 using WebAPI.DAL;
+using WebAPI.DAL.Imlementations;
+using WebAPI.DAL.Interfaces;
 using WebAPI.DAL.Models;
+using WebAPI.Services.Implementations;
+using WebAPI.Services.Interfaces;
 
 namespace WebAPI
 {
@@ -61,6 +67,13 @@ namespace WebAPI
 					ClockSkew = TimeSpan.Zero
 				};
 			});
+
+			services.AddTransient<IUserService, UserService>();
+			services.AddTransient<IAlbumsService, AlbumsService>();
+			services.AddTransient<IGenresService, GenresService>();
+			services.AddTransient<ILogService, LogService>();
+			services.AddTransient<IAlbumsDALService, AlbumsDALService>();
+			services.AddTransient<IGenresDALService, GenresDALService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

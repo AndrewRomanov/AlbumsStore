@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
 import {NotificationService} from "../services/notification.service";
@@ -12,7 +12,9 @@ export class SignInComponent {
 
   constructor(public userService: UserService,
               private router: Router,
-              private notificationService: NotificationService) { }
+              private notificationService: NotificationService) {
+    localStorage.removeItem('token');
+  }
 
   login() {
     this.userService.login().subscribe(

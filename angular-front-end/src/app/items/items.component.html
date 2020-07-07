@@ -34,20 +34,8 @@
     </div>
   </div>
   <div class="items-container">
-    <mat-grid-list [cols]="breakpoint" rowHeight="12:14" (window:resize)="onResize($event)" [gutterSize]="'-300px'">
-      <div>
-        <mat-grid-tile
-          *ngFor="let album of pagedAlbums | search: searchStr | searchRange: priceStart:priceEnd | genreFilter: selectedGenre">
-          <app-album
-            [album]="album">
-          </app-album>
-        </mat-grid-tile>
-      </div>
-    </mat-grid-list>
-    <mat-paginator [length]="length"
-                   [pageSize]="pageSize"
-                   [pageSizeOptions]="pageSizeOptions"
-                   (page)="OnPageChange($event)">
-    </mat-paginator>
+    <app-album *ngFor="let album of albums" [album]="album">
+
+    </app-album>
   </div>
 </div>

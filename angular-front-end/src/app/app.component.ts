@@ -15,6 +15,10 @@ export class AppComponent {
               private router: Router) {
   }
 
+  isUserLoggedIn(): boolean {
+    return localStorage.getItem('token') !== null;
+  }
+
   onLogout() {
     this.userService.logout().subscribe(
       success => {

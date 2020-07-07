@@ -8,17 +8,12 @@ import {NotificationService} from "../services/notification.service";
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent {
 
   constructor(public userService: UserService,
               private router: Router,
               private notificationService: NotificationService) {
-  }
-
-  ngOnInit(): void {
-    if (localStorage.getItem('token') != null) {
-      this.router.navigateByUrl('items');
-    }
+    localStorage.removeItem('token');
   }
 
   onSubmit() {

@@ -6,11 +6,11 @@ using WebAPI.DAL.Models;
 
 namespace WebAPI.DAL.Imlementations
 {
-	public class GenresDALServiceL : IGenresDALService
+	public class GenresDALService : IGenresDALService
 	{
 		private ApplicationDbContext _applicationDbContext;
 
-		public GenresDALServiceL(ApplicationDbContext applicationDbContext)
+		public GenresDALService(ApplicationDbContext applicationDbContext)
 		{
 			applicationDbContext = _applicationDbContext;
 		}
