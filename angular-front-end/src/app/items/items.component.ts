@@ -5,6 +5,7 @@ import {GenresEnum} from "../enums/genres.enum";
 import {PageEvent} from "@angular/material/paginator";
 import {AlbumsSelectionParameters} from "../models/albums-selection-parameters.model";
 import {GenresService} from "../services/genres.service";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-items',
@@ -13,13 +14,12 @@ import {GenresService} from "../services/genres.service";
 })
 export class ItemsComponent implements OnInit {
 
-  albums: AlbumModel[];
-
   private _searchStr: string = '';
   @Input('searchStr')
   get searchStr(): string {
-    return  this._searchStr;
+    return this._searchStr;
   }
+
   set searchStr(val) {
     this._searchStr = val;
     this.albumsSelectionParameters.name = val;
@@ -31,6 +31,7 @@ export class ItemsComponent implements OnInit {
   get priceStart(): any {
     return this._priceStart;
   }
+
   set priceStart(val) {
     this._priceStart = val;
     this.albumsSelectionParameters.minPrice = val;
@@ -42,6 +43,7 @@ export class ItemsComponent implements OnInit {
   get priceEnd(): any {
     return this._priceEnd;
   }
+
   set priceEnd(val) {
     this._priceEnd = val;
     this.albumsSelectionParameters.maxPrice = val;
@@ -53,8 +55,8 @@ export class ItemsComponent implements OnInit {
   get selectedGenre(): any {
     return this._selectedGenre;
   }
+
   set selectedGenre(val) {
-    debugger;
     this._selectedGenre = val;
     this.albumsSelectionParameters.genreId = val;
     this.getAlbums();
@@ -65,6 +67,7 @@ export class ItemsComponent implements OnInit {
   get selectedSortingType(): any {
     return this._selectedSortingType;
   }
+
   set selectedSortingType(val) {
     this._selectedSortingType = val;
     this.albumsSelectionParameters.sortingType = val;
@@ -72,16 +75,20 @@ export class ItemsComponent implements OnInit {
   }
 
   genres = [];
+  albums: AlbumModel[];
 
   currentPage: number;
   totalPagesCount: number;
   totalItemsCount: number;
+  startItemsCount: number;
+  endItemsCount: number;
+
   albumsSelectionParameters: AlbumsSelectionParameters;
+
   disablePrevPage: boolean = true;
   disableNextPage: boolean = false;
 
-  startItemsCount: number;
-  endItemsCount: number;
+  itemsCountOption: FormGroup;
 
   sortingTypes = [
     {value: 0, description: 'Не выбрано'},
@@ -93,13 +100,27 @@ export class ItemsComponent implements OnInit {
   selectedCountOption = 3;
 
   constructor(private albumsService: AlbumsService,
-              private genresService: GenresService) {
+              private genresService: GenresService,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
+    this.initSortingTypesForm();
     this.initSelectionParameters();
     this.initPaging();
     this.initGenres();
+  }
+
+  initSortingTypesForm() {
+    this.itemsCountOption = this.formBuilder.group({
+      itemsCountOption: [null]
+    });
+    this.itemsCountOption.get('itemsCountOption').setValue(this.itemsCountOptions[0]);
+    this.itemsCountOption.get("itemsCountOption").valueChanges.subscribe(x => {
+      this.selectedCountOption = x;
+      this.albumsSelectionParameters.itemsCount = x;
+      this.getAlbums();
+    })
   }
 
   initSelectionParameters() {
@@ -133,24 +154,14 @@ export class ItemsComponent implements OnInit {
     this.getAlbums();
   }
 
-  onChangeItemsCount(event) {
-    debugger;
-    this.selectedCountOption = event.value;
-    this.getAlbums();
-  }
-
   initGenres() {
-    debugger;
     this.genresService.getGenres().subscribe(
       success => {
-        debugger;
         this.genres.push({id: 0, name: 'Не выбрано'});
         this.genres = this.genres.concat(success);
         this.getAlbums();
       },
       error => {
-        debugger;
-        console.log(error);
       }
     )
   }
@@ -158,22 +169,27 @@ export class ItemsComponent implements OnInit {
   getAlbums() {
     this.albumsService.getAllAlbums(this.albumsSelectionParameters).subscribe(
       (success: any) => {
-        debugger;
         this.albums = success.albums;
         this.totalItemsCount = success.itemsCount;
         this.updatePaging();
       },
       error => {
-        debugger;
-        console.log(error);
       }
     );
   }
 
   updatePaging() {
-    debugger;
     this.totalPagesCount = Math.ceil(this.totalItemsCount / this.selectedCountOption);
-    this.startItemsCount = this.currentPage === 1 ? 1 : (this.currentPage - 1) * this.albums.length;
-    this.endItemsCount = this.currentPage * this.albums.length;
+    this.startItemsCount = this.currentPage === 1 ? 1 : (this.currentPage - 1) * this.selectedCountOption + 1;
+    if (this.currentPage === this.totalPagesCount) {
+      this.endItemsCount = this.totalItemsCount;
+    } else {
+      this.endItemsCount = this.currentPage * this.albums.length;
+    }
+    // if (this.albums.length < this.selectedCountOption) {
+    //   this.endItemsCount = (this.currentPage * this.selectedCountOption - this.albums.length) + 1;
+    // } else {
+    //   this.endItemsCount = this.currentPage * this.albums.length;
+    // }
   }
 }

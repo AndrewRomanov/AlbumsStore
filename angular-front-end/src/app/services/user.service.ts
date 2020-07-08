@@ -21,7 +21,7 @@ export class UserService {
     ]],
     userName: [null, [
       Validators.required,
-      Validators.pattern(/[A-z0-9]/)
+      Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/)
     ]],
     email: [null, [
       Validators.required,
@@ -37,7 +37,7 @@ export class UserService {
     {
       userName: [null, [
         Validators.required,
-        Validators.pattern(/[A-z0-9]/)
+        Validators.pattern(/^[a-zA-Z0-9]+$/)
       ]],
       password: [null, [
         Validators.required,

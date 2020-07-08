@@ -49,12 +49,12 @@
         <input matInput type="password" id="password" formControlName="password">
       </mat-form-field>
       <span class="error"
-            *ngIf="userService.signUpForm.get('email').touched && userService.signUpForm.get('email').errors?.required">
+            *ngIf="userService.signUpForm.get('password').touched && userService.signUpForm.get('password').errors?.required">
       Поле обязательно для заполнения
     </span>
       <span class="error"
-            *ngIf="userService.signUpForm.get('email').touched && userService.signUpForm.get('email').errors?.minlength">
-            Пароль должен быть длиннее 6 символов
+            *ngIf="userService.signUpForm.get('password').touched && userService.signUpForm.get('password').errors?.minlength">
+            Пароль должен быть длиннее 6 символов и содержать хотя бы 1 цифру и 1 букву
     </span>
     </p>
     <button mat-raised-button color="primary">Отправить</button>

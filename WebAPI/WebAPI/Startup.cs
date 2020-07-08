@@ -41,6 +41,8 @@ namespace WebAPI
 				o.Password.RequireUppercase = false;
 				o.Password.RequireNonAlphanumeric = false;
 				o.Password.RequireLowercase = false;
+				o.Password.RequiredUniqueChars = 0;
+				o.Password.RequireDigit = false;
 			})
 			.AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 

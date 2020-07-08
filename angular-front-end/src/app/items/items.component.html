@@ -35,12 +35,20 @@
   </div>
   <div class="paginator">
     <span>Элементов на странице</span>
-    <mat-select (selectionChange)="onChangeItemsCount($event)" [(value)]="selectedSortingType" class="paginator-select">
-      <mat-label></mat-label>
-      <mat-option *ngFor="let itemsCountOption of itemsCountOptions" [value]="itemsCountOption">
-        {{itemsCountOption}}
-      </mat-option>
-    </mat-select>
+    <form [formGroup]="itemsCountOption" class="paginator-select">
+      <mat-select formControlName="itemsCountOption">
+        <mat-option *ngFor="let itemsCountOption of itemsCountOptions" [value]="itemsCountOption">
+          {{itemsCountOption}}
+        </mat-option>
+      </mat-select>
+    </form>
+    <!--    <span>Элементов на странице</span>-->
+    <!--    <mat-select (selectionChange)="onChangeItemsCount($event)" [(value)]="selectedSortingType" class="paginator-select">-->
+    <!--      <mat-label></mat-label>-->
+    <!--      <mat-option *ngFor="let itemsCountOption of itemsCountOptions" [value]="itemsCountOption">-->
+    <!--        {{itemsCountOption}}-->
+    <!--      </mat-option>-->
+    <!--    </mat-select>-->
     {{startItemsCount}} - {{endItemsCount}} из {{totalItemsCount}}
     <span (click)="onPrevPage()" class="material-icons paging-icon">navigate_before</span>
     <span (click)="onNextPage()" class="material-icons paging-icon">navigate_next</span>

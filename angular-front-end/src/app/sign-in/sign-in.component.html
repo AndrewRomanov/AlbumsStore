@@ -24,10 +24,6 @@
             *ngIf="userService.signInForm.get('password').touched && userService.signInForm.get('password').errors?.required">
       Поле обязательно для заполнения
     </span>
-      <span class="error"
-            *ngIf="userService.signInForm.get('password').touched && userService.signInForm.get('password').errors?.minlength">
-      Пароль должен быть длиннее 6 символов
-    </span>
     </p>
     <button mat-raised-button color="primary">Войти</button>
     <span>Нет аккаунта? <a routerLink="/signUp">Зарегистрироваться</a></span>
