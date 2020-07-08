@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AlbumsService} from "../services/albums.service";
 import {AlbumModel} from "../models/album.model";
-import {GenresEnum} from "../enums/genres.enum";
-import {PageEvent} from "@angular/material/paginator";
 import {AlbumsSelectionParameters} from "../models/albums-selection-parameters.model";
 import {GenresService} from "../services/genres.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -186,10 +184,5 @@ export class ItemsComponent implements OnInit {
     } else {
       this.endItemsCount = this.currentPage * this.albums.length;
     }
-    // if (this.albums.length < this.selectedCountOption) {
-    //   this.endItemsCount = (this.currentPage * this.selectedCountOption - this.albums.length) + 1;
-    // } else {
-    //   this.endItemsCount = this.currentPage * this.albums.length;
-    // }
   }
 }

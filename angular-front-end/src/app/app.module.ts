@@ -16,18 +16,14 @@ import {MatButtonModule} from "@angular/material/button";
 import {ToastrModule} from "ngx-toastr";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {AlbumsService} from "./services/albums.service";
-import { SearchPipe } from './pipes/search.pipe';
 import {MatCardModule} from "@angular/material/card";
 import { AlbumComponent } from './album/album.component';
-import { SearchRangePipe } from './pipes/search-range.pipe';
 import {MatSelectModule} from "@angular/material/select";
-import { GenreFilterPipe } from './pipes/genre-filter.pipe';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {AuthGuard} from "./auth/auth.guard";
 import {HttpClientModule} from "@angular/common/http";
 import {NotificationService} from "./services/notification.service";
-import { SortPipe } from './pipes/sort.pipe';
 import {GenresService} from "./services/genres.service";
 
 
@@ -44,11 +40,7 @@ const routes = [
     SignUpComponent,
     SignInComponent,
     ItemsComponent,
-    SearchPipe,
-    AlbumComponent,
-    SearchRangePipe,
-    GenreFilterPipe,
-    SortPipe
+    AlbumComponent
   ],
   imports: [
     BrowserModule,
