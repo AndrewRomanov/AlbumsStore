@@ -6,14 +6,14 @@
 
 		public int PageNumber { get; set; }
 
-		public float MinPrice { get; set; }
+		public float? MinPrice { get; set; }
 
-		public float MaxPrice { get; set; }
+		public float? MaxPrice { get; set; }
 
-		//public string Name { get; set; }
+		public string Name { get; set; }
 
-		//public int GenreId { get; set; }
+		public int? GenreId { get; set; }
 
-		//public SortingType SortingType { get; set; }
+		public int? SortingType { get; set; }
 	}
 }

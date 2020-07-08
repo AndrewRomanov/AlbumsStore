@@ -9,6 +9,6 @@ namespace WebAPI.DAL.Interfaces
 	{
 		//Task<List<Album>> GetAllAlbums();
 
-		Task<List<Album>> GetAllAlbums(AlbumsSelectionParameters parameters);
+		Task<AlbumsSelectionResult> GetAllAlbums(AlbumsSelectionParameters parameters);
 	}
 }

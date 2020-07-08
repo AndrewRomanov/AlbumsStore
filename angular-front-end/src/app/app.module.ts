@@ -30,6 +30,7 @@ import {NotificationService} from "./services/notification.service";
 import { SortPipe } from './pipes/sort.pipe';
 import {GenresService} from "./services/genres.service";
 
+
 const routes = [
   {path: '', component: SignInComponent},
   {path: 'signUp', component: SignUpComponent},

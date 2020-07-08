@@ -17,7 +17,7 @@ export class UserService {
   signUpForm = this.formBuilder.group({
     fullName: [null, [
       Validators.required,
-      Validators.pattern(/[A-z]/)
+      Validators.pattern(/[A-zА-я]/)
     ]],
     userName: [null, [
       Validators.required,

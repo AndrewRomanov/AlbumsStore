@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AlbumsService} from "../services/albums.service";
 import {AlbumModel} from "../models/album.model";
 import {GenresEnum} from "../enums/genres.enum";
@@ -15,18 +15,73 @@ export class ItemsComponent implements OnInit {
 
   albums: AlbumModel[];
 
-  searchStr: string = '';
-  priceStart: number = 0;
-  priceEnd: number = 0;
-  selectedGenre: any;
-  selectedSortingType: any;
+  private _searchStr: string = '';
+  @Input('searchStr')
+  get searchStr(): string {
+    return  this._searchStr;
+  }
+  set searchStr(val) {
+    this._searchStr = val;
+    this.albumsSelectionParameters.name = val;
+    this.getAlbums();
+  }
+
+  private _priceStart: any = 0;
+  @Input(`priceStart`)
+  get priceStart(): any {
+    return this._priceStart;
+  }
+  set priceStart(val) {
+    this._priceStart = val;
+    this.albumsSelectionParameters.minPrice = val;
+    this.getAlbums();
+  }
+
+  private _priceEnd: any = 0;
+  @Input(`priceEnd`)
+  get priceEnd(): any {
+    return this._priceEnd;
+  }
+  set priceEnd(val) {
+    this._priceEnd = val;
+    this.albumsSelectionParameters.maxPrice = val;
+    this.getAlbums();
+  }
+
+  private _selectedGenre: any;
+  @Input(`selectedGenre`)
+  get selectedGenre(): any {
+    return this._selectedGenre;
+  }
+  set selectedGenre(val) {
+    debugger;
+    this._selectedGenre = val;
+    this.albumsSelectionParameters.genreId = val;
+    this.getAlbums();
+  }
+
+  private _selectedSortingType: any;
+  @Input(`selectedSortingType`)
+  get selectedSortingType(): any {
+    return this._selectedSortingType;
+  }
+  set selectedSortingType(val) {
+    this._selectedSortingType = val;
+    this.albumsSelectionParameters.sortingType = val;
+    this.getAlbums();
+  }
 
   genres = [];
 
   currentPage: number;
+  totalPagesCount: number;
+  totalItemsCount: number;
   albumsSelectionParameters: AlbumsSelectionParameters;
   disablePrevPage: boolean = true;
   disableNextPage: boolean = false;
+
+  startItemsCount: number;
+  endItemsCount: number;
 
   sortingTypes = [
     {value: 0, description: 'Не выбрано'},
@@ -34,28 +89,53 @@ export class ItemsComponent implements OnInit {
     {value: 2, description: 'По цене'}
   ]
 
+  itemsCountOptions = [3, 6, 9];
+  selectedCountOption = 3;
+
   constructor(private albumsService: AlbumsService,
               private genresService: GenresService) {
   }
 
   ngOnInit(): void {
+    this.initSelectionParameters();
     this.initPaging();
     this.initGenres();
   }
 
+  initSelectionParameters() {
+    this.albumsSelectionParameters = new AlbumsSelectionParameters();
+    this.albumsSelectionParameters.pageNumber = 1;
+    this.albumsSelectionParameters.itemsCount = this.selectedCountOption;
+  }
+
   initPaging() {
     this.currentPage = 1;
+    this.selectedCountOption = this.itemsCountOptions[0];
   }
 
   onPrevPage() {
     this.currentPage--;
+    if (this.currentPage <= 1) {
+      this.currentPage = 1;
+    }
     this.disablePrevPage = this.currentPage !== 1;
+    this.albumsSelectionParameters.pageNumber = this.currentPage;
     this.getAlbums();
   }
 
   onNextPage() {
     this.currentPage++;
-    this.disablePrevPage = this.currentPage === 20; // Поменять потом
+    if (this.currentPage >= this.totalPagesCount) {
+      this.currentPage = this.totalPagesCount;
+    }
+    this.disableNextPage = this.currentPage === this.totalPagesCount;
+    this.albumsSelectionParameters.pageNumber = this.currentPage;
+    this.getAlbums();
+  }
+
+  onChangeItemsCount(event) {
+    debugger;
+    this.selectedCountOption = event.value;
     this.getAlbums();
   }
 
@@ -65,7 +145,7 @@ export class ItemsComponent implements OnInit {
       success => {
         debugger;
         this.genres.push({id: 0, name: 'Не выбрано'});
-        this.genres.push(success);
+        this.genres = this.genres.concat(success);
         this.getAlbums();
       },
       error => {
@@ -76,12 +156,12 @@ export class ItemsComponent implements OnInit {
   }
 
   getAlbums() {
-    let itemsCount = 6;
-    let albumsSelectionParameters = new AlbumsSelectionParameters(0, 20000, itemsCount, this.currentPage);
-    this.albumsService.getAllAlbums(albumsSelectionParameters).subscribe(
-      success => {
-        this.albums = success;
-        this.updatePriceBorders();
+    this.albumsService.getAllAlbums(this.albumsSelectionParameters).subscribe(
+      (success: any) => {
+        debugger;
+        this.albums = success.albums;
+        this.totalItemsCount = success.itemsCount;
+        this.updatePaging();
       },
       error => {
         debugger;
@@ -90,9 +170,10 @@ export class ItemsComponent implements OnInit {
     );
   }
 
-  updatePriceBorders() {
-    let albumsPrices = this.albums.map(x => x.price);
-    this.priceStart = Math.min(...albumsPrices);
-    this.priceEnd = Math.max(...albumsPrices);
+  updatePaging() {
+    debugger;
+    this.totalPagesCount = Math.ceil(this.totalItemsCount / this.selectedCountOption);
+    this.startItemsCount = this.currentPage === 1 ? 1 : (this.currentPage - 1) * this.albums.length;
+    this.endItemsCount = this.currentPage * this.albums.length;
   }
 }

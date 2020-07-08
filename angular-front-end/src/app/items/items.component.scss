@@ -58,4 +58,13 @@ mat-figure {
   opacity: 0.5;
 }
 
+.paginator {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.paginator-select {
+  width: 50px;
+  margin-left: 10px;
+}
 

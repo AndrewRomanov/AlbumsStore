@@ -35,7 +35,7 @@ namespace WebAPI.Services.Implementations
 		//	}
 		//}
 
-		public async Task<List<Album>> GetAllAlbums(AlbumsSelectionParameters parameters)
+		public async Task<AlbumsSelectionResult> GetAllAlbums(AlbumsSelectionParameters parameters)
 		{
 			try
 			{
@@ -44,7 +44,7 @@ namespace WebAPI.Services.Implementations
 			catch (Exception ex)
 			{
 				_logService.Log(LogLevel.Error, ex, "Произошла ошибка в AlbumsService");
-				return new List<Album>();
+				return new AlbumsSelectionResult(0, new List<Album>());
 			}
 		}
 	}

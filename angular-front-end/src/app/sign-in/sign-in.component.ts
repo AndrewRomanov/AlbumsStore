@@ -28,4 +28,9 @@ export class SignInComponent {
       }
     );
   }
+
+  checkValidForm(contolName: string): boolean {
+    console.log(this.userService.signInForm.get(contolName).errors);
+    return true;
+  }
 }

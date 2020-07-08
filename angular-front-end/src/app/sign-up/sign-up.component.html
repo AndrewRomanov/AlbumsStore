@@ -6,24 +6,56 @@
         <mat-label>Имя</mat-label>
         <input matInput type="text" id="fullName" formControlName="fullName">
       </mat-form-field>
+      <span class="error"
+            *ngIf="userService.signUpForm.get('fullName').touched && userService.signUpForm.get('fullName').errors?.required">
+      Поле обязательно для заполнения
+    </span>
+      <span class="error"
+            *ngIf="userService.signUpForm.get('fullName').touched && userService.signUpForm.get('fullName').errors?.pattern">
+      Логин должен содержать только латинские и русские буквы
+    </span>
     </p>
     <p>
       <mat-form-field>
         <mat-label>Логин</mat-label>
         <input matInput type="text" id="userName" formControlName="userName">
       </mat-form-field>
+      <span class="error"
+            *ngIf="userService.signUpForm.get('userName').touched && userService.signUpForm.get('userName').errors?.required">
+      Поле обязательно для заполнения
+    </span>
+      <span class="error"
+            *ngIf="userService.signUpForm.get('userName').touched && userService.signUpForm.get('userName').errors?.pattern">
+      Логин должен содержать только латинские буквы и цифры
+    </span>
     </p>
     <p>
       <mat-form-field>
         <mat-label>Email</mat-label>
         <input matInput type="text" id="email" formControlName="email">
       </mat-form-field>
+      <span class="error"
+            *ngIf="userService.signUpForm.get('email').touched && userService.signUpForm.get('email').errors?.required">
+      Поле обязательно для заполнения
+    </span>
+      <span class="error"
+            *ngIf="userService.signUpForm.get('email').touched && userService.signUpForm.get('email').errors?.email">
+      Неверный формат электронной почты
+    </span>
     </p>
     <p>
       <mat-form-field>
         <mat-label>Пароль</mat-label>
         <input matInput type="password" id="password" formControlName="password">
       </mat-form-field>
+      <span class="error"
+            *ngIf="userService.signUpForm.get('email').touched && userService.signUpForm.get('email').errors?.required">
+      Поле обязательно для заполнения
+    </span>
+      <span class="error"
+            *ngIf="userService.signUpForm.get('email').touched && userService.signUpForm.get('email').errors?.minlength">
+            Пароль должен быть длиннее 6 символов
+    </span>
     </p>
     <button mat-raised-button color="primary">Отправить</button>
     <span>Уже зарегистрированы? <a routerLink="/signIn">Войти</a></span>

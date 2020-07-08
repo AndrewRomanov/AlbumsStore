@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebAPI.Common.Models;
 using WebAPI.DAL.Models;
@@ -30,7 +29,7 @@ namespace WebAPI.Controllers
 
 		[HttpGet]
 		[Route("GetAllAlbums")]
-		public async Task<List<Album>> GetAllAlbums([FromQuery]AlbumsSelectionParameters parameters)
+		public async Task<AlbumsSelectionResult> GetAllAlbums([FromQuery]AlbumsSelectionParameters parameters)
 		{
 			return await _albumsService.GetAllAlbums(parameters);
 		}
