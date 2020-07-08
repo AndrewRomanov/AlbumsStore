@@ -22,19 +22,6 @@ namespace WebAPI.Services.Implementations
 			_logService = logService;
 		}
 
-		//public async Task<List<Album>> GetAllAlbums()
-		//{
-		//	try
-		//	{
-		//		return await _albumsDALService.GetAllAlbums();
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		_logService.Log(LogLevel.Error, ex, "Произошла ошибка в AlbumsService");
-		//		return new List<Album>();
-		//	}
-		//}
-
 		public async Task<AlbumsSelectionResult> GetAllAlbums(AlbumsSelectionParameters parameters)
 		{
 			try

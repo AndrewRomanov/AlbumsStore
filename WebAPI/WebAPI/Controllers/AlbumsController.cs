@@ -20,13 +20,6 @@ namespace WebAPI.Controllers
 			_albumsService = albumsService;
 		}
 
-		//[HttpGet]
-		//[Route("GetAllAlbums")]
-		//public async Task<List<Album>> GetAllAlbums()
-		//{
-		//	return await _albumsService.GetAllAlbums();
-		//}
-
 		[HttpGet]
 		[Route("GetAllAlbums")]
 		public async Task<AlbumsSelectionResult> GetAllAlbums([FromQuery]AlbumsSelectionParameters parameters)

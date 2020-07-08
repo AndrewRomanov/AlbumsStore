@@ -7,8 +7,6 @@ namespace WebAPI.Services.Interfaces
 {
 	public interface IAlbumsService
 	{
-		//Task<List<Album>> GetAllAlbums();
-
 		Task<AlbumsSelectionResult> GetAllAlbums(AlbumsSelectionParameters parameters);
 	}
 }
