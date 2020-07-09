@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
-import * as globals from "../../globals";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -52,12 +52,12 @@ export class UserService {
       Email: this.signUpForm.value.email,
       Password: this.signUpForm.value.password
     };
-    return this.httpClient.post(globals.BaseURI + 'User/Register/', body);
+    return this.httpClient.post(environment.baseUri + 'User/Register/', body);
   }
 
   logout() {
     this.isLoggedIn = false;
-    return this.httpClient.get(globals.BaseURI + 'User/Logout/');
+    return this.httpClient.get(environment.baseUri + 'User/Logout/');
   }
 
   login() {
@@ -65,6 +65,6 @@ export class UserService {
       UserName: this.signInForm.value.userName,
       Password: this.signInForm.value.password
     };
-    return this.httpClient.post(globals.BaseURI + 'User/Login', body);
+    return this.httpClient.post(environment.baseUri + 'User/Login', body);
   }
 }
