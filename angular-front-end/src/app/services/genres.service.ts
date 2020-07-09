@@ -13,7 +13,6 @@ export class GenresService {
   }
 
   getGenres(): Observable<GenreModel[]> {
-    let tokenHandler = new HttpHeaders({'Authorization':'Bearer '+localStorage.getItem('token')});
-    return this.httpClient.get<GenreModel[]>(environment.baseUri + 'Genres/GetGenres/', {headers: tokenHandler});
+    return this.httpClient.get<GenreModel[]>(environment.baseUri + 'Genres/GetGenres/');
   }
 }

@@ -184,5 +184,10 @@ export class ItemsComponent implements OnInit {
     } else {
       this.endItemsCount = this.currentPage * this.albums.length;
     }
+    if (this.albums.length === 0) {
+      this.startItemsCount = 0;
+      this.endItemsCount = 0;
+      this.totalItemsCount = 0;
+    }
   }
 }

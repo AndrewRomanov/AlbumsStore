@@ -22,9 +22,10 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {AuthGuard} from "./auth/auth.guard";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {NotificationService} from "./services/notification.service";
 import {GenresService} from "./services/genres.service";
+import {Interceptor} from "./interceptor";
 
 
 const routes = [
@@ -65,7 +66,12 @@ const routes = [
       UserService,
       AlbumsService,
       GenresService,
-      NotificationService
+      NotificationService,
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: Interceptor,
+        multi: true
+      }
     ],
   bootstrap: [AppComponent]
 })

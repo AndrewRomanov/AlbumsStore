@@ -13,7 +13,6 @@ export class AlbumsService {
   }
 
   getAllAlbums(albumsSelectionParameters : any): Observable<AlbumModel[]> {
-    let headers = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token'), 'Content-Type': 'application/json', 'Accept': 'application/json'});
-    return this.httpClient.get<AlbumModel[]>(environment.baseUri + 'Albums/GetAllAlbums/', {headers: headers, params: albumsSelectionParameters});
+    return this.httpClient.get<AlbumModel[]>(environment.baseUri + 'Albums/GetAllAlbums/', {params: albumsSelectionParameters});
   }
 }
