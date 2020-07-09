@@ -28,7 +28,7 @@ namespace WebAPI.Services.Implementations
 			_logService = logService;
 		}
 
-		public async Task<object> Register(UserViewModel model)
+		public async Task<IdentityResult> Register(UserViewModel model)
 		{
 			try
 			{

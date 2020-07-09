@@ -18,7 +18,7 @@ namespace WebAPI.Controllers
 
 		[HttpPost]
 		[Route("Register")]
-		public async Task<object> Register(UserViewModel model)
+		public async Task<IActionResult> Register(UserViewModel model)
 		{
 			var result = await _userService.Register(model);
 			if (result != null)
@@ -48,7 +48,7 @@ namespace WebAPI.Controllers
 
 		[HttpGet]
 		[Route("Logout")]
-		public async Task<object> Logout()
+		public async Task<IActionResult> Logout()
 		{
 			var result = await _userService.Logout();
 			if (result == true)
