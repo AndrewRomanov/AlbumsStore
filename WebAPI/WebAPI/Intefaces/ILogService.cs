@@ -1,7 +1,7 @@
 ﻿using NLog;
 using System;
 
-namespace WebAPI.Common.Interfaces
+namespace WebAPI.Intefaces
 {
 	public interface ILogService
 	{

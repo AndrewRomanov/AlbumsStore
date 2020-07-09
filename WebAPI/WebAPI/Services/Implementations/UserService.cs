@@ -6,8 +6,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using WebAPI.Common.Interfaces;
 using WebAPI.DAL.Models;
+using WebAPI.Intefaces;
 using WebAPI.Models;
 using WebAPI.Services.Interfaces;
 

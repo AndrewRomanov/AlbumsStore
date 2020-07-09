@@ -9,12 +9,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
-using WebAPI.Common.Implementations;
-using WebAPI.Common.Interfaces;
 using WebAPI.DAL;
 using WebAPI.DAL.Imlementations;
 using WebAPI.DAL.Interfaces;
 using WebAPI.DAL.Models;
+using WebAPI.Implementations;
+using WebAPI.Intefaces;
 using WebAPI.Services.Implementations;
 using WebAPI.Services.Interfaces;
 

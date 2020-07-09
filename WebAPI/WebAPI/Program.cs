@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using NLog;
+using NLog.Extensions.Logging;
 
 namespace WebAPI
 {
@@ -7,6 +10,7 @@ namespace WebAPI
 	{
 		public static void Main(string[] args)
 		{
+			InitializeNLog();
 			CreateWebHostBuilder(args).Build().Run();
 		}
 
@@ -14,5 +18,13 @@ namespace WebAPI
 			WebHost.CreateDefaultBuilder(args)
 				.UseStartup<Startup>()
 				.UseKestrel();
+
+		private static void InitializeNLog()
+		{
+			var config = new ConfigurationBuilder()
+							.SetBasePath(System.IO.Directory.GetCurrentDirectory())
+							.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+			LogManager.Configuration = new NLogLoggingConfiguration(config.GetSection("NLog"));
+		}
 	}
 }

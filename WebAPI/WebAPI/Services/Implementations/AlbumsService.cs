@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebAPI.Common.Interfaces;
 using WebAPI.Common.Models;
 using WebAPI.DAL.Interfaces;
 using WebAPI.DAL.Models;
+using WebAPI.Intefaces;
 using WebAPI.Services.Interfaces;
 
 namespace WebAPI.Services.Implementations

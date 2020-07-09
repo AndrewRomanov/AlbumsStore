@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebAPI.Common.Interfaces;
 using WebAPI.DAL.Interfaces;
 using WebAPI.DAL.Models;
+using WebAPI.Intefaces;
 using WebAPI.Services.Interfaces;
 
 namespace WebAPI.Services.Implementations
@@ -18,6 +18,7 @@ namespace WebAPI.Services.Implementations
 							 ILogService logService)
 		{
 			_genresDALService = genresDALService;
+			_logService = logService;
 		}
 
 		public async Task<List<Genre>> GetGenres()
